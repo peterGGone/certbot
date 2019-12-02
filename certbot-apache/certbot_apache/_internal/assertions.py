@@ -1,5 +1,5 @@
 """Dual parser node assertions"""
-from certbot_apache import interfaces
+from certbot_apache._internal import interfaces
 
 
 PASS = "CERTBOT_PASS_ASSERT"

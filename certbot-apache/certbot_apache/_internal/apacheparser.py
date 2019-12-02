@@ -1,8 +1,8 @@
 """ apacheconfig implementation of the ParserNode interfaces """
 
-from certbot_apache import assertions
-from certbot_apache import interfaces
-from certbot_apache import parsernode_util as util
+from certbot_apache._internal import assertions
+from certbot_apache._internal import interfaces
+from certbot_apache._internal import parsernode_util as util
 
 
 class ApacheParserNode(interfaces.ParserNode):
