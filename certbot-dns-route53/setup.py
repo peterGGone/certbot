@@ -1,7 +1,9 @@
 from setuptools import setup
 from setuptools import find_packages
+from setuptools.command.test import test as TestCommand
+import sys
 
-version = '0.40.0.dev0'
+version = '1.0.0.dev0'
 
 # Remember to update local-oldest-requirements.txt when changing the minimum
 # acme/certbot version.
@@ -13,6 +15,20 @@ install_requires = [
     'setuptools',
     'zope.interface',
 ]
+
+class PyTest(TestCommand):
+    user_options = []
+
+    def initialize_options(self):
+        TestCommand.initialize_options(self)
+        self.pytest_args = ''
+
+    def run_tests(self):
+        import shlex
+        # import here, cause outside the eggs aren't loaded
+        import pytest
+        errno = pytest.main(shlex.split(self.pytest_args))
+        sys.exit(errno)
 
 setup(
     name='certbot-dns-route53',
@@ -51,9 +67,11 @@ setup(
     keywords=['certbot', 'route53', 'aws'],
     entry_points={
         'certbot.plugins': [
-            'dns-route53 = certbot_dns_route53.dns_route53:Authenticator',
+            'dns-route53 = certbot_dns_route53._internal.dns_route53:Authenticator',
             'certbot-route53:auth = certbot_dns_route53.authenticator:Authenticator'
         ],
     },
+    tests_require=["pytest"],
     test_suite='certbot_dns_route53',
+    cmdclass={"test": PyTest},
 )
