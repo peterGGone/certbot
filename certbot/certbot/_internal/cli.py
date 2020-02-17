@@ -15,9 +15,9 @@ import zope.interface
 from zope.interface import interfaces as zope_interfaces
 
 from acme import challenges
-from acme.magic_typing import Any  # pylint: disable=unused-import, no-name-in-module
-from acme.magic_typing import Dict  # pylint: disable=unused-import, no-name-in-module
-from acme.magic_typing import Optional  # pylint: disable=unused-import, no-name-in-module
+from acme.magic_typing import Any
+from acme.magic_typing import Dict
+from acme.magic_typing import Optional
 import certbot
 from certbot import crypto_util
 from certbot import errors
@@ -92,8 +92,8 @@ obtain, install, and renew certificates:
 
 manage certificates:
     certificates    Display information about certificates you have from Certbot
-    revoke          Revoke a certificate (supply --cert-path or --cert-name)
-    delete          Delete a certificate
+    revoke          Revoke a certificate (supply --cert-name or --cert-path)
+    delete          Delete a certificate (supply --cert-name)
 
 manage your account:
     register        Create an ACME account
@@ -505,7 +505,7 @@ class HelpfulArgumentParser(object):
                 " and ".join(flag_default("config_files"))))
 
         # This is the only way to turn off overly verbose config flag documentation
-        self.parser._add_config_file_help = False  # pylint: disable=protected-access
+        self.parser._add_config_file_help = False
 
     # Help that are synonyms for --help subcommands
     COMMANDS_TOPICS = ["command", "commands", "subcommand", "subcommands", "verbs"]
@@ -1414,7 +1414,7 @@ def _plugins_parsing(helpful, plugins):
     helpful.add(["plugins", "certonly"], "--dns-gehirn", action="store_true",
                 default=flag_default("dns_gehirn"),
                 help=("Obtain certificates using a DNS TXT record "
-                     "(if you are using Gehirn Infrastracture Service for DNS)."))
+                     "(if you are using Gehirn Infrastructure Service for DNS)."))
     helpful.add(["plugins", "certonly"], "--dns-google", action="store_true",
                 default=flag_default("dns_google"),
                 help=("Obtain certificates using a DNS TXT record (if you are "
